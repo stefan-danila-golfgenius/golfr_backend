@@ -4,7 +4,6 @@ module Api
     include Devise::Controllers::Helpers
     before_action :logged_in!, only: :show
 
-
     def show
       user = User.find(params[:id])
 
@@ -16,16 +15,13 @@ module Api
         }
       else
         render json: {
-          errors: "The user was not found"
+          errors: 'The user was not found'
         }, status: :bad_request
-        return
       end
     end
 
-
     def login
       user = User.find_by('lower(email) = ?', params[:email])
-
       if user.blank? || !user.valid_password?(params[:password])
         render json: {
           errors: [
